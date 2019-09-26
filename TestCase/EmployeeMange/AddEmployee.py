@@ -22,7 +22,7 @@ class AddEmployeeCase(unittest.TestCase):
             self.driver.switch_to.frame("content")
             self.driver.find_element_by_xpath('''//*[@id="list"]/div[1]/button[2]''').click()
             self.driver.find_element_by_id("file").send_keys(r"G:\testfile\userImport.xlsx")
-            locator=(By.XPATH,"//*[@id="form"]/div/div[2]/button")
+            locator=(By.XPATH,'''//*[@id="form"]/div/div[2]/button''')
             WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located(locator))
             self.driver.find_element_by_xpath('''//*[@id="form"]/div/div[2]/button''').click()
             self.assertIn("肖测试",self.driver.page_source)
