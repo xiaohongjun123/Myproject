@@ -27,6 +27,7 @@ class EmployeeLogin(object):
         driver.find_element_by_xpath('''//*[@id="code"]''').send_keys(code)
         driver.find_element_by_xpath('''//*[@id="form"]/input''').click()
         time.sleep(1)
+
         return driver
 if __name__=="__main__":
     EmployeeLogin().Login()
