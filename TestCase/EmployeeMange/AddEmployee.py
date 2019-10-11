@@ -1,12 +1,16 @@
+import time
+import unittest
+
+import pymysql
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
 from LogCommon import logger
 from LoginMode import Login
-import time
-import pymysql
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-logger=logger.mylog("Caselog").getlog()
+
+logger=logger.mylog("CaseLog").getlog()
 db=pymysql.connect("192.168.2.200","root","hexinpass001","welfare")
 cursor=db.cursor()
 class AddEmployeeCase(unittest.TestCase):
@@ -24,6 +28,7 @@ class AddEmployeeCase(unittest.TestCase):
             self.driver.find_element_by_id("file").send_keys(r"G:\testfile\userImport.xlsx")
             locator=(By.XPATH,'''//*[@id="form"]/div/div[2]/button''')
             WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located(locator))
+            time.sleep(1)
             self.driver.find_element_by_xpath('''//*[@id="form"]/div/div[2]/button''').click()
             self.assertIn("肖测试",self.driver.page_source)
         except NoSuchElementException as e:
@@ -32,10 +37,10 @@ class AddEmployeeCase(unittest.TestCase):
             logger.error("测试结果错误"+str(e))
             raise AssertionError
     def tearDown(self):
-        '''        sql="DELETE FROM t_app_user WHERE username='肖测试后'"
+        sql="DELETE FROM t_app_user WHERE username='肖测试后'"
         cursor.execute(sql)
         db.commit()
-        db.close()'''
+        db.close()
         print("清除成功")
         self.driver.quit()
 
