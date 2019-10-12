@@ -2,6 +2,10 @@ from selenium import webdriver
 from verify_code import VerfyCode
 import time
 verifycode=VerfyCode.Chaojiying_Client('xhj123456','qazwsx123','899485')
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 from PIL import Image
 class EmployeeLogin(object):
     def Login(self):
@@ -25,14 +29,16 @@ class EmployeeLogin(object):
             print(code)
             driver.find_element_by_xpath('''//*[@id="M_username"]''').send_keys("te_admin")
             driver.find_element_by_xpath('''//*[@id="M_password"]''').send_keys("Aa123456")
-            driver.find_element_by_xpath('''//*[@id="code"]''').send_keys(1)
+            driver.find_element_by_xpath('''//*[@id="code"]''').send_keys(code)
             driver.find_element_by_xpath('''//*[@id="form"]/input''').click()
-            driver.find_element_by_xpath("")
-            time.sleep(1)
+            location=(By.XPATH,'''/html/body/div[2]/div[1]/a/img''')
+            WebDriverWait(driver,10,0.5).until(EC.presence_of_element_located(location))
+            driver.find_element_by_xpath("/html/body/div[2]/div[1]/a/img")
             return driver
-
         except:
-            print("报错")
+            driver.quit()
+            EmployeeLogin().Login()
+
 
 if __name__=="__main__":
     EmployeeLogin().Login()
