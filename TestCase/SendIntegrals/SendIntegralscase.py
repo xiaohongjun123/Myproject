@@ -26,12 +26,13 @@ class SendIntegrals(unittest.TestCase):
             self.driver.find_element_by_xpath('''//*[@id="Recharge"]/div[2]/div/div[1]/div[1]/span[2]/div/div[2]/div/label/div[1]/span/input''').click()
             self.driver.find_element_by_xpath('''//*[@id="quanxian1"]/div/label/div[1]/span/input''').click()
             self.driver.find_element_by_xpath('''//*[@id="firstStepsBtn"]''').click()
-            time.sleep(5)
+            time.sleep(3)
+            location0=(By.XPATH,'''//*[@id="Recharge1"]/div[2]/div/div/div[1]/div/div/div/button[1]''')
+            WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located(location0))
             self.driver.find_element_by_xpath('''//*[@id="Recharge1"]/div[2]/div/div/div[1]/div/div/div/button[1]''').click()
-            location=(By.XPATH,'''//*[@id="uploadFile"]''')
-            WebDriverWait(self.driver,10,0.5).until(EC.presence_of_element_located(location))
             self.driver.find_element_by_id("uploadFile").send_keys(r"C:\Users\admin\Desktop\pic\tim1g.jpg")
             self.driver.find_element_by_xpath('''//*[@id="form"]/div/div[2]/div/button[1]''').click()
+            time.sleep(1)
         except NoSuchElementException as e:
             logger.error("没有发现元素"+str(e))
         except AssertionError as e:
